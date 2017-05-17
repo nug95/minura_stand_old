@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt">
     <head>
@@ -46,7 +45,7 @@
             		if(request.getParameterMap().containsKey("Success")){
             			%>
 	            			<div class="alert alert-success alert-dismissable">
-								<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+								<button aria-hidden="true" data-dismiss="alert" class="close" type="button">Ã—</button>
 			                       Conta criada com sucesso!<br>Agora podes efetuar login <a class="alert-link" href="login.jsp">aqui</a>.
 							</div>
             			<%

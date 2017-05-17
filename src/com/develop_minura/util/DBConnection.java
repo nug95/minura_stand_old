@@ -73,14 +73,13 @@ public class DBConnection {
 				pre_tbl_name.executeUpdate();
 				
 				DBConnection.installation();
+				System.out.println("Instalacao finalizada com sucesso!");
 			}
 			
 			return con;
 			
 		} catch (Exception e) {
 			System.out.println(e);
-		}finally {
-			System.out.println("Instalacao finalizada com sucesso!");
 		}
 		
 		return null;

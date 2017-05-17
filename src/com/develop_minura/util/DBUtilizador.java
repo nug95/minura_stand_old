@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.develop_minura.model.Utilizador;
+import com.mysql.jdbc.PreparedStatement;
 
 public class DBUtilizador {
 	
@@ -42,7 +43,7 @@ public class DBUtilizador {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "Invalid user credencials!";
+		return "Dados invalidos!";
 	}
 	
 	public static boolean addUtDB(Utilizador u){
@@ -54,35 +55,54 @@ public class DBUtilizador {
 			conn = DBConnection.createConnection();
 			stmt = conn.createStatement();
 			
-			stmt.execute("INSERT INTO utilizadores (username, email, password) VALUES ('"+u.getUsername()+"', '"+u.getEmail()+"', '"+u.getPassword()+"')");
+			if(checkUtilizador(u.getUsername(), u.getEmail()) == false){
+				
+				stmt.execute("INSERT INTO utilizadores (username, email, password) VALUES ('"+u.getUsername()+"', '"+u.getEmail()+"', '"+u.getPassword()+"')");
+				
+				stmt.close();
+				stmt = null;
+				conn.close();
+				conn = null;
+				
+				return true;
+			}
 			
-			stmt.close();
-			stmt = null;
-			conn.close();
-			conn = null;
+			return false;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if(stmt != null){
-				try{
-					stmt.close();
-				}catch (SQLException e) {}
-				
-				stmt=null;
+		}
+		
+		return false;
+	}
+	
+	private static boolean checkUtilizador(String username, String email){
+		
+		try {
+			Connection con 	= null;
+			ResultSet rs 	= null;
+			Statement stmt 	= null;
+			
+			try {
+				con = DBConnection.createConnection();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-			if(conn != null){
-				try{
-					conn.close();
-				}catch (SQLException e) {}
-				
-				conn = null;
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT username, email FROM utilizadores WHERE isDeleted='0'");
+			
+			while(rs.next()){
+				String db_username 	= rs.getString("username");
+				String db_email		= rs.getString("email");
+				if(db_username.equals(username) || db_email.equals(email)){
+					return true;
+				}
 			}
 			
-			if(conn == null && stmt == null){
-				return true;
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return false;

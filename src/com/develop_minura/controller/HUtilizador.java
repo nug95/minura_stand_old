@@ -28,7 +28,6 @@ public class HUtilizador extends HttpServlet {
         this.servTipo = new STipo();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,13 +51,17 @@ public class HUtilizador extends HttpServlet {
 			if(!email.equals("")){
 				if(!username.equals("")){
 					if(!password.equals("") && password.equals(passwordCheck)){
+						
 						Utilizador u = new Utilizador(nome, sobrenome, nacionalidade, morada, localidade, cp, contacto, email, username, password, isOnline, isDeleted);
 						this.servUtilizador.addUtilizador(u);
+						
+						//Adiciona o utilizador à base de dados
 						if(DBUtilizador.addUtDB(u) == true){
 							response.sendRedirect("register.jsp?Success");
 						}else{
 							response.sendRedirect("register.jsp?FailToAdd");
 						}
+						
 					}else{
 						response.sendRedirect("register.jsp?Error=password&code=matchOrEmpty");
 					}
@@ -71,6 +74,9 @@ public class HUtilizador extends HttpServlet {
 			
 		
 		}//fim do if do add_ut
+		else if (request.getParameterMap().containsKey("log_ut")){
+			
+		}
 		
 		this.doGet(request, response);
 	}
