@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBConn {
 	
@@ -89,15 +90,16 @@ public class DBConn {
 		
 		return null;
 	}
-	public static void createTable(String query) throws Exception{
+	public static void createTable(Connection con, String query) throws Exception{
 		
 		PreparedStatement stmt = null;
 		
 		try {
 			
 			System.out.println("Preparing statement...");
-			stmt = createConnection().prepareStatement(query);
+			stmt = con.prepareStatement(query);
 			stmt.executeUpdate();
+			System.out.println("Table created...");
 			
 			stmt.close();
 			stmt = null;
@@ -115,6 +117,33 @@ public class DBConn {
 				}
 				
 				stmt = null;
+			}
+		}
+	}
+	public static void insertIntoTable(Connection con, String query) throws Exception {
+
+		Statement stmt = null;
+		
+		try{
+			System.out.println("Inserting into table...");
+			stmt = con.createStatement();
+			stmt.execute(query);
+			System.out.println("Success inserting into table...");
+			
+			stmt.close();
+			stmt=null;
+			
+		}catch (SQLException se) {
+			se.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(stmt != null){
+				try{
+					stmt.close();
+				}catch (SQLException se) {}
+				
+				stmt=null;
 			}
 		}
 	}

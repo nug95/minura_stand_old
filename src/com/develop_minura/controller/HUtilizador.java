@@ -10,32 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.develop_minura.model.Utilizador;
-import com.develop_minura.service.STipo;
 import com.develop_minura.service.SUtilizador;
-import com.develop_minura.util.DBConn;
 import com.develop_minura.util.DBUtilizador;
 
-@WebServlet("/HLogin")
+@WebServlet("/HUtilizador")
 public class HUtilizador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private SUtilizador servUtilizador;
-	private STipo		servTipo;
-	private DBUtilizador dbut;
 	
     public HUtilizador() {
         super();
         
         this.servUtilizador = new SUtilizador();
-        this.servTipo = new STipo();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			DBConn.createTable("CREATE TABLE IF NOT EXISTS utilizadores (ID int NOT NULL AUTO_INCREMENT, username varchar(40), tipo int DEFAULT '1', nome varchar(40), sobrenome varchar(40), nacionalidade varchar(50), morada varchar(200), localidade varchar(60), codigoPostal varchar(11), contacto varchar(10), email varchar(200), password varchar(40), isOnline bit DEFAULT 0, isDeleted bit DEFAULT 0, PRIMARY KEY(ID));");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
