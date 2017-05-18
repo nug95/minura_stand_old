@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.develop_minura.model.Utilizador;
 import com.develop_minura.service.STipo;
@@ -75,7 +76,27 @@ public class HUtilizador extends HttpServlet {
 		
 		}//fim do if do add_ut
 		else if (request.getParameterMap().containsKey("log_ut")){
-			
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			if(!username.equals("")){
+				if(!password.equals("")){
+					if(DBUtilizador.authenticateUser(username, password).equals("SUCCESS")){
+						if(DBUtilizador.obterUtilizador(username, password) != null){
+							HttpSession session = request.getSession();
+							session.setAttribute("utilizador", DBUtilizador.authenticateUser(username, password));
+							response.sendRedirect("index.jsp");
+						}else{
+							response.sendRedirect("login.jsp?Error=authentication&code=notFound");
+						}
+					}else{
+						response.sendRedirect("login.jsp?Error=authentication&code=wrongDetails");
+					}
+				}else{
+					response.sendRedirect("login.jsp?Error=password&code=empty");
+				}
+			}else{
+				response.sendRedirect("login.jsp?Error=username&code=empty");
+			}
 		}
 		
 		this.doGet(request, response);

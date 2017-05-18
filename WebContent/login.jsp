@@ -43,14 +43,14 @@
                 <div class="account-col text-center">
                     <h1><i>Minura</i> Stand</h1>
                     <h3>Entrar na conta</h3>
-                    <form class="m-t" role="form" action="index.html">
+                    <form class="m-t" role="form" action="HLogin" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" required="">
+                            <input type="text" class="form-control" name="username" placeholder="Username" required="">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Passowrd" required="">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required="">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block ">Login</button>
+                        <button type="submit" name="log_ut" class="btn btn-primary btn-block ">Login</button>
                         <a href="#"><small>Esqueceu-se da password?</small></a>
                         <p class=" text-center"><small>Ainda não tens uma conta?</small></p>
                         <a class="btn  btn-default btn-block" href="register.jsp">Criar uma conta</a>

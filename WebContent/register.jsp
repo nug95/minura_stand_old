@@ -73,7 +73,7 @@
                         <button type="submit" name="add_ut" class="btn btn-primary btn-block ">Criar</button>
                         <a href="#"><small></small></a>
                         <p class=" text-center"><small>Ja tens uma conta??</small></p>
-                        <a class="btn  btn-default btn-block" href="register.html">Entra por aqui</a>
+                        <a class="btn  btn-default btn-block" href="login.jsp">Entra por aqui</a>
                         <p>&copy; Minura Enterprise 2017</p>
                     </form>
                 </div>

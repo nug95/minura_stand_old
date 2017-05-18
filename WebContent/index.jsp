@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.ArrayList, com.develop_minura.model.Utilizador" %>
+<!-- <%
+	HttpSession s = request.getSession(false);
+	Utilizador u = (Utilizador) s.getAttribute("utilizador");
+	if(u == null){
+		response.sendRedirect("login.jsp");
+	}
+%> -->
 <!DOCTYPE html>
 <html lang="pt">
     <head>
@@ -147,7 +155,7 @@
                             
                             <li class="nav-heading"><span>Mais	</span></li>
                             <li>
-                                <a href="#"><i class="fa fa-users"></i> <span class="nav-label">{Nome}</span><span class="fa arrow"></span></a>
+                                <a href="#"><i class="fa fa-users"></i> <span class="nav-label"></span><span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level collapse">
                                     <li><a href="#"><i class="fa fa-user"></i> <span class="nav-label">Perfil</span></a></li>
                                     <li><a href="#"><i class="fa fa-cogs"></i> <span clasS="nav-label">Definições</span></a></li>

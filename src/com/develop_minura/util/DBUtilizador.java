@@ -12,10 +12,7 @@ public class DBUtilizador {
 	
 	public DBUtilizador(){}
 	
-	public static String authenticateUser(Utilizador u){
-		String username		= u.getUsername();
-		String password		= u.getPassword();
-		
+	public static String authenticateUser(String username, String password){
 		Connection 	conn = null;
 		Statement 	stmt = null;
 		ResultSet	rs	 = null;
@@ -30,7 +27,7 @@ public class DBUtilizador {
 			} catch (Exception e) { e.printStackTrace(); }
 			
 			stmt = conn.createStatement();
-			rs	 = stmt.executeQuery("SELECT username, password FROM utilizadores WHERE tipo > 1 ADN isDeleted='0'");
+			rs	 = stmt.executeQuery("SELECT username, password FROM utilizadores WHERE tipo >= 1 AND isDeleted='0'");
 			
 			while(rs.next()){
 				usernameDB = rs.getString("username");
@@ -106,5 +103,50 @@ public class DBUtilizador {
 		}
 		
 		return false;
+	}
+	
+	public static Utilizador obterUtilizador(String username, String password){
+
+		try {
+			Connection con 	= null;
+			ResultSet rs 	= null;
+			Statement stmt 	= null;
+			
+			try {
+				con = DBConnection.createConnection();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("SELECT ID,username,tipo,nome,sobrenome,nacionalidade,morada,localidade,codigoPostal,contacto,email,password,isOnline,isDeleted FROM utilizadores WHERE username='"+username+"' AND password='"+password+"'");
+			
+			while(rs.next()){
+				String db_username 	= rs.getString("username");
+				String db_password	= rs.getString("password");
+				if(db_username.equals(username) || db_password.equals(password)){
+					
+					String nome 		= rs.getString("nome");
+					String sobrenome	= rs.getString("sobrenome");
+					String nacionalidade = rs.getString("nacionalidade");
+					String morada		= rs.getString("morada");
+					String localidade	= rs.getString("localidade");
+					String cp			= rs.getString("codigoPostal");
+					String contacto		= rs.getString("contacto");
+					String email		= rs.getString("email");
+					boolean isOnline	= Boolean.valueOf(rs.getString("isOnline"));
+					boolean isDeleted	= Boolean.valueOf(rs.getString("isDeleted"));
+					
+					Utilizador u = new Utilizador(nome, sobrenome, nacionalidade, morada, localidade, cp, contacto, email, db_username, db_password, isOnline, isDeleted);
+					return u;
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }
