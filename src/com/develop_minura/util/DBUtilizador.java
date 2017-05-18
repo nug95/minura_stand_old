@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.develop_minura.model.Utilizador;
-import com.mysql.jdbc.PreparedStatement;
 
 public class DBUtilizador {
 	

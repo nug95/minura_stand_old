@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.util.ArrayList, com.develop_minura.model.Utilizador" %>
-<!-- <%
+<%
 	HttpSession s = request.getSession(false);
 	Utilizador u = (Utilizador) s.getAttribute("utilizador");
 	if(u == null){
 		response.sendRedirect("login.jsp");
 	}
-%> -->
+%>
 <!DOCTYPE html>
 <html lang="pt">
     <head>
